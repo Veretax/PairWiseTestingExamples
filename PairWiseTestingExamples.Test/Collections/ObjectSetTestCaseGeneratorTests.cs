@@ -78,11 +78,10 @@ namespace PairWiseTestingExamples.Test.Collections
             var sut = new ObjectSetTestCaseGenerator();
             List<Object> set1 = new List<object>(){ 1, 2, 3, 4};
             List<Object> set2 = new List<object>(){ 'a', 'b', 'c', 'd', 'e'};
-            ObjectSetGroup objectSetGroup = new ObjectSetGroup()
-            {
-                set1,
-                set2
-            };
+            ObjectSetGroup objectSetGroup = new ObjectSetGroup(2);
+            objectSetGroup.DefineObjectSet(0,set1);
+            objectSetGroup.DefineObjectSet(1,set2);
+
             // Act
             sut.InitializeSetData(objectSetGroup);
 

@@ -26,8 +26,31 @@ public class ObjectSetGroup : IList<List<Object>>
 
     public void DefineObjectSet(int setNumber, List<Object> set)
     {
-        this.ObjectSets[setNumber].Clear();
-        this.ObjectSets[setNumber].AddRange(set);
+        ObjectSetGroup newSetGroup = new ObjectSetGroup(this.ObjectSets.Count);
+
+        newSetGroup.AddRange(this.Select((sublist, index) => index == setNumber ? set : sublist));
+
+        this.Clear();
+        this.AddRange(newSetGroup);
+
+        //ObjectSetGroup newSetGroup = new ObjectSetGroup(this.ObjectSets.Count);
+
+        //for (int n = 0; n < this.ObjectSets.Count; n++)
+        //{
+        //    if (n == setNumber)
+        //    {
+        //        newSetGroup.Add(set);
+        //        continue;
+        //    }
+        //    newSetGroup.Add(ObjectSets[n]);
+        //}
+
+        //this.ObjectSets = newSetGroup;
+    }
+
+    private void AddRange(IEnumerable<List<object>> sets)
+    {
+        this.ObjectSets = sets as IList<List<object>>;
     }
 
     public void AddObjectToSet(int setNumber, object value)
